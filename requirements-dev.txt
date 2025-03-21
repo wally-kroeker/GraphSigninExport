@@ -1,0 +1,22 @@
+# GraphReporter Development Requirements
+# Additional dependencies for development and testing
+
+# Include all runtime dependencies
+-r requirements.txt
+
+# Testing
+pytest>=7.0.0,<8.0.0
+pytest-cov>=4.0.0,<5.0.0
+
+# Code formatting and linting
+black>=23.0.0,<24.0.0
+isort>=5.10.0,<6.0.0
+flake8>=5.0.0,<6.0.0
+
+# Type checking
+mypy>=1.0.0,<2.0.0
+types-requests>=2.28.0,<3.0.0
+
+# Documentation
+sphinx>=6.0.0,<7.0.0
+sphinx-rtd-theme>=1.2.0,<2.0.0 

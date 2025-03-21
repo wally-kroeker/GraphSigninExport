@@ -1,0 +1,78 @@
+{
+  "value": [
+    {
+      "id": "a1b2c3d4-e5f6-a7b8-c9d0-e1f2a3b4c5d6",
+      "appId": "11111111-2222-3333-4444-555555555555",
+      "displayName": "GraphReporter",
+      "createdDateTime": "2023-01-01T00:00:00Z",
+      "api": {
+        "acceptMappedClaims": null,
+        "knownClientApplications": [],
+        "oauth2PermissionScopes": [],
+        "preAuthorizedApplications": [],
+        "requestedAccessTokenVersion": 2
+      },
+      "requiredResourceAccess": [
+        {
+          "resourceAppId": "00000003-0000-0000-c000-000000000000",
+          "resourceAccess": [
+            {
+              "id": "e1fe6dd8-ba31-4d61-89e7-88639da4683d",
+              "type": "Scope"
+            },
+            {
+              "id": "df021288-bdef-4463-88db-98f22de89214",
+              "type": "Role"
+            },
+            {
+              "id": "7ab1d382-f21e-4acd-a863-ba3e13f7da61",
+              "type": "Role"
+            }
+          ]
+        }
+      ],
+      "web": {
+        "homePageUrl": "https://example.com",
+        "logoutUrl": null,
+        "redirectUris": [],
+        "implicitGrantSettings": {
+          "enableAccessTokenIssuance": false,
+          "enableIdTokenIssuance": false
+        }
+      },
+      "spa": null,
+      "publicClient": null
+    },
+    {
+      "id": "f9e8d7c6-b5a4-3210-f9e8-d7c6b5a43210",
+      "appId": "66666666-7777-8888-9999-000000000000",
+      "displayName": "Example App",
+      "createdDateTime": "2022-06-15T12:30:00Z",
+      "api": {
+        "acceptMappedClaims": null,
+        "knownClientApplications": [],
+        "oauth2PermissionScopes": [],
+        "preAuthorizedApplications": [],
+        "requestedAccessTokenVersion": 2
+      },
+      "requiredResourceAccess": [
+        {
+          "resourceAppId": "00000003-0000-0000-c000-000000000000",
+          "resourceAccess": [
+            {
+              "id": "e1fe6dd8-ba31-4d61-89e7-88639da4683d",
+              "type": "Scope"
+            }
+          ]
+        }
+      ],
+      "web": null,
+      "spa": {
+        "redirectUris": [
+          "https://app.example.com/auth"
+        ]
+      },
+      "publicClient": null
+    }
+  ]
+} 

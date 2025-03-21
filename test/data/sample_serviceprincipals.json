@@ -1,0 +1,57 @@
+{
+  "value": [
+    {
+      "id": "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
+      "appId": "11111111-2222-3333-4444-555555555555",
+      "displayName": "GraphReporter",
+      "appOwnerOrganizationId": "12345678-90ab-cdef-1234-567890abcdef",
+      "createdDateTime": "2023-01-01T00:00:00Z",
+      "servicePrincipalType": "Application",
+      "oauth2PermissionScopes": []
+    },
+    {
+      "id": "9z8y7x6w-5v4u-3t2s-1r0q-9z8y7x6w5v4u",
+      "appId": "66666666-7777-8888-9999-000000000000",
+      "displayName": "Example App",
+      "appOwnerOrganizationId": "12345678-90ab-cdef-1234-567890abcdef",
+      "createdDateTime": "2022-06-15T12:30:00Z",
+      "servicePrincipalType": "Application",
+      "oauth2PermissionScopes": []
+    },
+    {
+      "id": "5f4e3d2c-1b0a-9z8y-7x6w-5v4u3t2s1r0q",
+      "appId": "00000003-0000-0000-c000-000000000000",
+      "displayName": "Microsoft Graph",
+      "appOwnerOrganizationId": "f8cdef31-a31e-4b4a-93e4-5f571e91255a",
+      "createdDateTime": "2021-01-01T00:00:00Z",
+      "servicePrincipalType": "Application",
+      "oauth2PermissionScopes": [
+        {
+          "id": "e1fe6dd8-ba31-4d61-89e7-88639da4683d",
+          "adminConsentDescription": "Allow the application to read sign-in logs",
+          "adminConsentDisplayName": "Read sign-in logs",
+          "isEnabled": true,
+          "type": "Admin",
+          "value": "AuditLog.Read.All"
+        },
+        {
+          "id": "df021288-bdef-4463-88db-98f22de89214",
+          "adminConsentDescription": "Allow the application to read all applications",
+          "adminConsentDisplayName": "Read all applications",
+          "isEnabled": true,
+          "type": "Admin",
+          "value": "Application.Read.All"
+        },
+        {
+          "id": "7ab1d382-f21e-4acd-a863-ba3e13f7da61",
+          "adminConsentDescription": "Allow the application to read all directory data",
+          "adminConsentDisplayName": "Read directory data",
+          "isEnabled": true,
+          "type": "Admin",
+          "value": "Directory.Read.All"
+        }
+      ]
+    }
+  ],
+  "@odata.nextLink": null
+} 

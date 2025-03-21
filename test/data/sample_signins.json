@@ -1,0 +1,71 @@
+{
+  "value": [
+    {
+      "id": "01234567-89ab-cdef-0123-456789abcdef",
+      "createdDateTime": "2023-01-15T14:32:16Z",
+      "userPrincipalName": "user@example.com",
+      "userId": "11111111-2222-3333-4444-555555555555",
+      "appId": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+      "appDisplayName": "Microsoft Office",
+      "ipAddress": "203.0.113.1",
+      "clientAppUsed": "Mobile Apps and Desktop clients",
+      "status": {
+        "errorCode": 0,
+        "failureReason": null
+      },
+      "location": {
+        "city": "Seattle",
+        "state": "Washington",
+        "countryOrRegion": "US",
+        "geoCoordinates": {
+          "latitude": 47.60357,
+          "longitude": -122.32945
+        }
+      },
+      "deviceDetail": {
+        "deviceId": null,
+        "displayName": null,
+        "operatingSystem": "Windows 10",
+        "browser": "Edge 89.0.774",
+        "isCompliant": null,
+        "isManaged": null,
+        "trustType": null
+      },
+      "correlationId": "ffffffff-0000-1111-2222-333333333333"
+    },
+    {
+      "id": "76543210-fedc-ba98-7654-321098765432",
+      "createdDateTime": "2023-01-15T10:15:42Z",
+      "userPrincipalName": "admin@example.com",
+      "userId": "99999999-8888-7777-6666-555555555555",
+      "appId": "ffffffff-eeee-dddd-cccc-bbbbbbbbbbbb",
+      "appDisplayName": "Azure Portal",
+      "ipAddress": "198.51.100.1",
+      "clientAppUsed": "Browser",
+      "status": {
+        "errorCode": 0,
+        "failureReason": null
+      },
+      "location": {
+        "city": "New York",
+        "state": "New York",
+        "countryOrRegion": "US",
+        "geoCoordinates": {
+          "latitude": 40.7128,
+          "longitude": -74.006
+        }
+      },
+      "deviceDetail": {
+        "deviceId": null,
+        "displayName": null,
+        "operatingSystem": "macOS",
+        "browser": "Chrome 97.0.4692",
+        "isCompliant": null,
+        "isManaged": null,
+        "trustType": null
+      },
+      "correlationId": "11111111-2222-3333-4444-555555555555"
+    }
+  ],
+  "@odata.nextLink": "https://graph.microsoft.com/v1.0/auditLogs/signIns?$filter=(createdDateTime+ge+2023-01-01T00%3A00%3A00Z+and+createdDateTime+le+2023-01-31T23%3A59%3A59Z)&$orderby=createdDateTime+desc&$skiptoken=abcdefg"
+} 
