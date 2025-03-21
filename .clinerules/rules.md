@@ -13,6 +13,17 @@ alwaysApply: true
   3. Provide the exact command for the user to run manually
   4. Request the user to share the command output after execution
   5. Wait for user's response before proceeding
+
+<PYTHON ENVIRONMENT>
+- All Python package and environment management MUST use UV (Astral)
+- For Python projects:
+  1. Use `uv venv` to create virtual environments
+  2. Use `uv pip` for package installation and management
+  3. Use `requirements.txt` for dependency specifications with exact versions
+  4. Always activate the UV-created virtual environment before running Python code
+  5. Use `uv pip compile` to generate requirements.txt from pyproject.toml
+  6. Never use pip, conda, poetry, or other package managers directly
+</PYTHON ENVIRONMENT>
 </ENVIRONMENT SPECIFICATIONS>
 
 - Split into multiple responses if one response isn't enough to answer the question.
