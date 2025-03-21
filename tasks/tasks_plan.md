@@ -28,19 +28,20 @@ This document outlines the planned tasks and their current status for the GraphR
 - [x] Add filtering capabilities (date range, application, user)
 - [x] Create CSV export functionality
 - [x] Create example scripts for different export scenarios
+- [x] Enhance export scripts with chunking to handle timeouts
+- [x] Add automatic file combining for chunked exports
 - [ ] Implement pagination handling for large datasets
-- [ ] Add error handling for Graph API calls
 - [ ] Add retry logic for failed API calls
 - [ ] Add more comprehensive logging
 
 ## Data Export and Reporting
 
 - [x] Implement basic CSV export
+- [x] Create command-line interface for specific report types
 - [ ] Add Excel export format
 - [ ] Add JSON export format
 - [ ] Create report templates
 - [ ] Implement data visualization options
-- [ ] Add command-line interface for report generation
 - [ ] Add scheduling capability for recurring reports
 
 ## Additional Report Types
@@ -58,6 +59,7 @@ This document outlines the planned tasks and their current status for the GraphR
 - [x] Document technical setup
 - [x] Create tasks plan
 - [x] Maintain active context
+- [x] Document Microsoft Graph API best practices
 - [ ] Write developer guide
 - [ ] Write user guide
 

@@ -29,6 +29,12 @@ We are currently implementing the core functionality of the GraphReporter projec
   - Added filtering by date range, application, and user
   - Implemented CSV export functionality
   - Created example scripts for different export scenarios
+  - Enhanced the application-specific export script with:
+    - Improved date range handling to prevent infinite loops
+    - Error handling for API timeouts
+    - Chunking of large date ranges for reliability
+    - Automatic file combining for merged exports
+    - Flexible command-line parameters
 
 ### In Progress
 
@@ -47,11 +53,13 @@ We are currently implementing the core functionality of the GraphReporter projec
    - Add more report types (users, devices, applications)
    - Implement additional filtering options
    - Improve data transformation and formatting
+   - Add pagination support for large datasets
 
 3. Improve Export Functionality
    - Add support for more export formats (Excel, JSON)
    - Implement data visualization options
    - Add scheduling capability for recurring reports
+   - Apply chunking and file combining to other export scripts
 
 ## Current Decisions and Considerations
 
@@ -59,6 +67,8 @@ We are currently implementing the core functionality of the GraphReporter projec
 - Using azure-identity and msgraph-sdk for Microsoft Graph integration
 - Successfully implemented app-only authentication using client credentials flow
 - Successfully implemented sign-in logs export with flexible filtering options
+- Using chunking strategy to handle Microsoft Graph API timeouts
+- Implementing proper error handling for partial success in data retrieval
 - Planning to expand to more Microsoft Graph data endpoints
 - Planning for efficient data retrieval and pagination handling
 
@@ -69,3 +79,4 @@ We are currently implementing the core functionality of the GraphReporter projec
 - Error handling should be comprehensive yet user-friendly
 - Need to ensure proper handling of API rate limits
 - Need to provide flexible data filtering options for all report types
+- Microsoft Graph API may time out for large date ranges, requiring chunking strategies
