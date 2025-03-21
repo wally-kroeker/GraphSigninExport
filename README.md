@@ -1,21 +1,27 @@
 # GraphReporter
 
-A Python CLI tool for retrieving and reporting Microsoft Entra ID (Azure AD) data using Microsoft Graph API.
+A Python CLI tool for retrieving and reporting Microsoft Entra ID (Azure AD) sign-in logs using Microsoft Graph API.
 
 ![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 ## Overview
 
-GraphReporter is a command-line tool that helps IT administrators and security professionals extract and analyze data from Microsoft Entra ID (Azure AD). It uses the Microsoft Graph API to retrieve sign-in logs, app registrations, and enterprise applications, and exports this data in various formats for analysis.
+GraphReporter is a command-line tool that helps IT administrators and security professionals extract and analyze sign-in logs from Microsoft Entra ID (Azure AD). It uses the Microsoft Graph API to retrieve sign-in logs with flexible filtering options by application, user, or date range.
 
 ### Features
 
 - **Authentication**: Secure client credentials (app-only) authentication with Microsoft Graph API
-- **Data Retrieval**: Fetch sign-in logs, app registrations, and enterprise apps
-- **Filtering**: Filter data by date, type, and other properties
-- **Export**: Export data to CSV, Excel, or JSON formats
-- **Pagination**: Handle large datasets with proper pagination
+- **Sign-in Logs**: Fetch sign-in logs with various filtering options
+  - All sign-ins within a date range
+  - Application-specific sign-ins (by name or ID)
+  - User-specific sign-ins
+- **Smart Data Retrieval**: 
+  - Automatic chunking of large date ranges to avoid timeouts
+  - File combining for chunked exports
+  - Configurable chunk sizes
+- **Export**: Export data to CSV format (Excel and JSON coming soon)
+- **Easy to Use**: Simple shell script interface for all operations
 
 ## Prerequisites
 
@@ -25,128 +31,81 @@ Before using GraphReporter, you need to:
 2. Grant the following API permissions:
    - AuditLog.Read.All (Application)
    - Directory.Read.All (Application)
-   - Application.Read.All (Application)
 3. Generate a client secret
 
-## Installation
+## Quick Start
 
-### Using uv (Recommended)
 ```bash
-# Install uv if you haven't already
+# 1. Install UV (if not already installed)
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Clone the repository
-git clone https://github.com/yourusername/graphreporter.git
-cd graphreporter
+# 2. Clone the repository
+git clone https://github.com/wally-kroeker/GraphSigninExport.git
+cd GraphSigninExport
 
-# Create and activate a virtual environment with uv
-uv venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+# 3. Create .env file with your Azure credentials
+cat > .env << EOF
+AZURE_TENANT_ID=your_tenant_id
+AZURE_CLIENT_ID=your_client_id
+AZURE_CLIENT_SECRET=your_client_secret
+EOF
 
-# Install the package
-uv pip install -e .
-```
+# 4. Set up the environment
+./graphreporter.sh setup
 
-### Using pip (Alternative)
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/graphreporter.git
-cd graphreporter
-
-# Create and activate a virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install the package
-pip install -e .
-```
-
-## Configuration
-
-GraphReporter requires the following configuration:
-
-1. Create a `.env` file in the project root with your Azure AD details:
-
-```
-GRAPH_TENANT_ID=your-tenant-id
-GRAPH_CLIENT_ID=your-client-id
-GRAPH_CLIENT_SECRET=your-client-secret
-```
-
-Or set these environment variables manually:
-
-```bash
-export GRAPH_TENANT_ID=your-tenant-id
-export GRAPH_CLIENT_ID=your-client-id
-export GRAPH_CLIENT_SECRET=your-client-secret
+# 5. Start using the tool!
+./graphreporter.sh signin --days 7
 ```
 
 ## Usage
 
-### Fetch Sign-In Logs
+GraphReporter provides several commands to export sign-in logs:
 
+### Export All Sign-in Logs
 ```bash
-# Fetch sign-in logs for the last 7 days in CSV format
-python -m graphreporter fetch-signins --last-days 7 --format csv
+# Export last 7 days of sign-ins (default)
+./graphreporter.sh signin
 
-# Fetch sign-in logs within a specific date range in Excel format
-python -m graphreporter fetch-signins --start-date 2023-01-01 --end-date 2023-01-31 --format excel
-
-# Fetch sign-in logs and filter by specific user
-python -m graphreporter fetch-signins --last-days 30 --user-id user@example.com
+# Export sign-ins for a specific number of days
+./graphreporter.sh signin --days 30
 ```
 
-### List App Registrations
-
+### Export Application-Specific Logs
 ```bash
-# List all app registrations in CSV format
-python -m graphreporter list-apps --format csv
+# By application display name
+./graphreporter.sh app-by-name "Office365 Shell WCSS-Client" --days 14
 
-# List app registrations with specific permissions
-python -m graphreporter list-apps --permission "Mail.Read"
+# By application ID with chunking
+./graphreporter.sh app-by-id 6a08801d-62d2-4770-91d1-cc1887a0e884 --days 90 --chunk-days 10
 ```
 
-### List Enterprise Applications
-
+### Export User-Specific Logs
 ```bash
-# List all enterprise apps in CSV format
-python -m graphreporter list-service-principals --format csv
-
-# List recently added enterprise apps
-python -m graphreporter list-service-principals --created-after 2023-01-01
+# Export sign-ins for a specific user
+./graphreporter.sh user user@example.com --days 7
 ```
 
-### General Options
-
+### Common Options
 ```bash
-# Get help
-python -m graphreporter --help
-
-# Get help for a specific command
-python -m graphreporter fetch-signins --help
-
-# Specify output directory
-python -m graphreporter fetch-signins --last-days 7 --output-dir ./reports
+  --days <number>        Number of days to look back (default: 7)
+  --chunk-days <number>  Number of days per chunk to avoid timeouts (default: 5)
+  --no-combine          Do not combine multiple CSV files into one
+  --verbose             Enable verbose output
 ```
 
-## Output Examples
-
-### Sign-In Logs CSV Example
-
-```
-id,createdDateTime,userPrincipalName,appDisplayName,ipAddress,clientAppUsed,status
-01234567-89ab-cdef-0123-456789abcdef,2023-01-15T14:32:16Z,user@example.com,Microsoft Office,203.0.113.1,Mobile Apps and Desktop clients,success
+### Get Help
+```bash
+# Show all available commands and options
+./graphreporter.sh help
 ```
 
-### App Registrations Excel Example
+## Output
 
-The Excel output includes:
-- App ID
-- Display Name
-- App Permissions
-- Granted Permissions
-- Creation Date
-- Owner Information
+All exports are saved in the `exports/` directory in CSV format. The files are named based on the type of export and date range:
+
+- All sign-ins: `signin_logs_YYYY-MM-DD_YYYY-MM-DD.csv`
+- App-specific: `app_logs_AppName_YYYY-MM-DD_YYYY-MM-DD.csv`
+- User-specific: `user_logs_username_YYYY-MM-DD_YYYY-MM-DD.csv`
 
 ## Development
 
@@ -154,23 +113,34 @@ The Excel output includes:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/graphreporter.git
-cd graphreporter
+git clone https://github.com/wally-kroeker/GraphSigninExport.git
+cd GraphSigninExport
 
-# Using uv (recommended)
+# Install UV (recommended)
 curl -LsSf https://astral.sh/uv/install.sh | sh
-uv venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
-# Install dependencies with uv
-uv pip install -r requirements.txt
+# Set up the environment
+./graphreporter.sh setup
+
+# Install development dependencies
 uv pip install -r requirements-dev.txt
+```
 
-# Alternative: Using traditional venv
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
-pip install -r requirements-dev.txt
+### Project Structure
+
+```
+GraphSigninExport/
+├── src/
+│   └── graphreporter/
+│       ├── auth/           # Authentication module
+│       │   └── client.py   # AuthClient for Graph API
+│       ├── config/         # Configuration settings
+│       └── reports/        # Report generation modules
+├── examples/               # Example scripts
+├── tests/                 # Test files
+├── exports/               # Output directory
+├── graphreporter.sh       # CLI interface
+└── requirements.txt       # Project dependencies
 ```
 
 ### Running Tests
@@ -183,17 +153,23 @@ pytest
 pytest --cov=graphreporter
 ```
 
-## Project Structure
+## Troubleshooting
 
-```
-graphreporter/
-├── cli/                 # CLI commands
-├── auth/                # Authentication module
-├── graph/               # Graph API clients
-├── export/              # Export functionality
-├── config/              # Configuration management
-└── utils/               # Utility functions
-```
+### Common Issues
+
+1. **Authentication Errors**
+   - Verify your Azure AD credentials in the `.env` file
+   - Ensure proper API permissions are granted
+   - Check if admin consent is provided for the permissions
+
+2. **Timeout Errors**
+   - Use the `--chunk-days` option to reduce the time range per request
+   - For large exports, use the `app-by-id` command which supports chunking
+
+3. **Environment Issues**
+   - Run `./graphreporter.sh setup` to reset the environment
+   - Ensure UV is installed and in your PATH
+   - Check if the virtual environment is activated
 
 ## Contributing
 
@@ -206,4 +182,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Acknowledgments
 
 - [Microsoft Graph API Documentation](https://docs.microsoft.com/en-us/graph/overview)
-- [MSAL Python](https://github.com/AzureAD/microsoft-authentication-library-for-python) 
+- [Azure Identity Python SDK](https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/identity/azure-identity) 
