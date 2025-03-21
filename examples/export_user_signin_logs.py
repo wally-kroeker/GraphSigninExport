@@ -1,4 +1,5 @@
 import asyncio
+import argparse
 from datetime import datetime, timedelta
 import os
 from graphreporter.auth.client import AuthClient
@@ -7,6 +8,12 @@ from graphreporter.config.settings import Settings
 
 async def main():
     """Export sign-in logs for a specific user."""
+    # Parse command line arguments
+    parser = argparse.ArgumentParser(description='Export sign-in logs for a specific user.')
+    parser.add_argument('user_email', help='Email address of the user to export logs for')
+    parser.add_argument('--days', type=int, default=7, help='Number of days to look back (default: 7)')
+    args = parser.parse_args()
+
     # Initialize the settings and auth client
     settings = Settings()
     auth_client = AuthClient(settings)
@@ -15,16 +22,15 @@ async def main():
     # Create the sign-in logs client
     signin_client = SignInLogsClient(graph_client)
     
-    # Set the date range for the last 7 days
+    # Set the date range based on the days argument
     end_date = datetime.utcnow()
-    start_date = end_date - timedelta(days=7)
+    start_date = end_date - timedelta(days=args.days)
     
     # Create the output directory if it doesn't exist
     os.makedirs('exports', exist_ok=True)
     
-    # Target a specific user
-    # Note: You can replace this with your target user's email
-    user_email = "paige.mcnabb@qualico.com"
+    # Use the provided user email
+    user_email = args.user_email
     
     output_file = os.path.join('exports', f'user_signin_logs_{user_email.split("@")[0]}_{start_date.date()}_{end_date.date()}.csv')
     
