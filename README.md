@@ -30,6 +30,24 @@ Before using GraphReporter, you need to:
 
 ## Installation
 
+### Using uv (Recommended)
+```bash
+# Install uv if you haven't already
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Clone the repository
+git clone https://github.com/yourusername/graphreporter.git
+cd graphreporter
+
+# Create and activate a virtual environment with uv
+uv venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Install the package
+uv pip install -e .
+```
+
+### Using pip (Alternative)
 ```bash
 # Clone the repository
 git clone https://github.com/yourusername/graphreporter.git
@@ -139,14 +157,19 @@ The Excel output includes:
 git clone https://github.com/yourusername/graphreporter.git
 cd graphreporter
 
-# Create and activate a virtual environment
+# Using uv (recommended)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+uv venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Install dependencies with uv
+uv pip install -r requirements.txt
+uv pip install -r requirements-dev.txt
+
+# Alternative: Using traditional venv
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
 pip install -r requirements.txt
-
-# Install development dependencies
 pip install -r requirements-dev.txt
 ```
 

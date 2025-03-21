@@ -2,103 +2,80 @@
 # -*- coding: utf-8 -*-
 """
 GraphReporter Authentication Client
-Handles authentication with Microsoft Graph API using MSAL
+Handles authentication with Microsoft Graph API using azure-identity
 """
 
 import logging
-from typing import Dict, List, Optional, Any
+from typing import Optional
 
-import msal
+from azure.identity.aio import ClientSecretCredential
+from msgraph import GraphServiceClient
 
-from graphreporter.config.settings import get_settings
+from graphreporter.config.settings import Settings
 
 
 class AuthClient:
     """
-    Authentication client for Microsoft Graph API
-    
-    Uses MSAL to implement client credentials flow
+    Authentication client for Microsoft Graph API using client credentials flow
     """
     
-    def __init__(self):
-        """Initialize the authentication client"""
-        self.settings = get_settings()
+    def __init__(self, settings: Settings):
+        """
+        Initialize the authentication client
+        
+        Args:
+            settings: Application settings containing credentials
+        """
+        self.settings = settings
         self.logger = logging.getLogger(__name__)
-        self._app = None
-        self._token_cache = {}
+        self._credential: Optional[ClientSecretCredential] = None
+        self._client: Optional[GraphServiceClient] = None
         
         self.logger.debug("AuthClient initialized")
     
     @property
-    def app(self) -> msal.ConfidentialClientApplication:
+    def credential(self) -> ClientSecretCredential:
         """
-        Get or create the MSAL confidential client application
+        Get or create the ClientSecretCredential
         
         Returns:
-            msal.ConfidentialClientApplication: MSAL client application
+            ClientSecretCredential: The credential object
         """
-        if not self._app:
-            self.logger.debug("Creating MSAL confidential client application")
-            self._app = msal.ConfidentialClientApplication(
+        if not self._credential:
+            self.logger.debug("Creating ClientSecretCredential")
+            self._credential = ClientSecretCredential(
+                tenant_id=self.settings.tenant_id,
                 client_id=self.settings.client_id,
-                client_credential=self.settings.client_secret,
-                authority=self.settings.authority_url,
+                client_secret=self.settings.client_secret
             )
-        return self._app
+        return self._credential
     
-    def get_token(self) -> Optional[str]:
+    @property
+    def client(self) -> GraphServiceClient:
         """
-        Acquire a token for Microsoft Graph API
+        Get or create the GraphServiceClient
         
         Returns:
-            Optional[str]: Access token or None if acquisition failed
+            GraphServiceClient: The Graph client
         """
-        self.logger.debug("Acquiring token for client")
-        
-        # Try to get token from cache first
-        if self._token_cache:
-            self.logger.debug("Checking token cache")
-            if "access_token" in self._token_cache and not self._is_token_expired():
-                self.logger.debug("Using cached token")
-                return self._token_cache["access_token"]
-        
-        # Acquire new token
-        self.logger.debug("Acquiring new token")
-        result = self.app.acquire_token_for_client(scopes=self.settings.scopes)
-        
-        if "access_token" in result:
-            self.logger.debug("Token acquired successfully")
-            self._token_cache = result
-            return result["access_token"]
-        else:
-            error_description = result.get("error_description", "Unknown error")
-            self.logger.error(f"Failed to acquire token: {error_description}")
-            return None
+        if not self._client:
+            self.logger.debug("Creating GraphServiceClient")
+            scopes = ['https://graph.microsoft.com/.default']
+            self._client = GraphServiceClient(credentials=self.credential, scopes=scopes)
+        return self._client
     
-    def get_auth_header(self) -> Dict[str, str]:
+    async def test_authentication(self) -> bool:
         """
-        Get authentication header for Graph API requests
+        Test the authentication by making a simple Graph API call
         
         Returns:
-            Dict[str, str]: Headers dictionary with Authorization header
-        
-        Raises:
-            ValueError: If token acquisition fails
+            bool: True if authentication successful, False otherwise
         """
-        token = self.get_token()
-        if not token:
-            raise ValueError("Failed to acquire access token")
-        
-        return {"Authorization": f"Bearer {token}"}
-    
-    def _is_token_expired(self) -> bool:
-        """
-        Check if the cached token is expired
-        
-        Returns:
-            bool: True if token is expired or about to expire, False otherwise
-        """
-        # For simplicity, we're not implementing actual expiry checking in this version
-        # A proper implementation would check the expires_on field and compare with current time
-        # For now, we'll always assume the token is expired if this method is called
-        return True 
+        try:
+            # Try to get organization details as a simple test
+            org = await self.client.organization.get()
+            self.logger.info(f"Successfully authenticated to tenant: {org.value[0].display_name}")
+            return True
+        except Exception as e:
+            self.logger.error(f"Authentication failed: {str(e)}")
+            return False 

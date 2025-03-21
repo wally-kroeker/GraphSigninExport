@@ -4,10 +4,11 @@
 
 ### Python Version
 - Python 3.8 or higher is required
-- Virtual environment management with venv is recommended
+- Virtual environment management with uv (recommended) or venv
 
 ### Development Tools
 - Visual Studio Code with Python extensions recommended
+- uv for dependency management and virtual environments
 - Black for code formatting
 - Isort for import sorting
 - Flake8 for linting
@@ -85,14 +86,19 @@
 git clone https://github.com/yourusername/graphreporter.git
 cd graphreporter
 
-# Create virtual environment
+# Using uv (recommended)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+uv venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Install dependencies with uv
+uv pip install -r requirements.txt
+uv pip install -r requirements-dev.txt
+
+# Alternative: Using traditional venv
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
 pip install -r requirements.txt
-
-# Install development dependencies
 pip install -r requirements-dev.txt
 ```
 

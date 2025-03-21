@@ -24,31 +24,42 @@
 - [x] Create system architecture
 - [x] Document technical specifications
 - [x] Set up project directory structure
-- [ ] Initialize Git repository with proper .gitignore
-- [ ] Create README.md with project overview and usage instructions
+- [x] Initialize Git repository with proper .gitignore
+- [x] Create README.md with project overview and usage instructions
 
-#### 1.2 Development Environment (🟠 Planned)
-- [ ] Set up virtual environment
-- [ ] Create requirements.txt with initial dependencies
-- [ ] Add setup.py for package installation
-- [ ] Set up linting and formatting tools
-- [ ] Create initial test structure
+#### 1.2 Development Environment (🟡 In Progress)
+- [x] Set up virtual environment with UV (Astral)
+- [x] Create pyproject.toml for package configuration
+- [x] Generate requirements.txt and requirements-dev.txt using UV
+- [x] Set up linting and formatting tools (black, isort, flake8)
+- [x] Create initial test structure
+- [ ] Set up initial test cases
 
 ### Phase 2: Core Components
 
-#### 2.1 Configuration Management (🟠 Planned)
+#### 2.1 Configuration Management (🟡 In Progress)
+- [x] Set up project configuration in pyproject.toml
+- [x] Add Azure AD app registration requirements
 - [ ] Implement configuration loading from environment variables
 - [ ] Add support for .env file
 - [ ] Create settings validation logic
 - [ ] Implement secure credential handling
 - [ ] Add configuration documentation
 
-#### 2.2 Authentication Module (🟠 Planned)
-- [ ] Create AuthClient class using MSAL
-- [ ] Implement client credentials flow
+#### 2.2 Authentication Module (🟡 In Progress)
+- [x] Document required Azure AD permissions:
+  - AuditLog.Read.All
+  - Directory.Read.All
+  - Application.Read.All
+- [x] Add authentication dependencies:
+  - azure-identity
+  - msgraph-sdk
+- [x] Create AuthClient class using azure-identity
+- [x] Implement client credentials flow
+- [x] Add basic authentication test
 - [ ] Add token caching and management
 - [ ] Handle authentication errors gracefully
-- [ ] Write unit tests for authentication module
+- [ ] Write additional unit tests for authentication module
 
 #### 2.3 Base Graph Client (🟠 Planned)
 - [ ] Create base GraphClient class

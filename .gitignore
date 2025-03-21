@@ -40,6 +40,10 @@ MANIFEST
 venv/
 env/
 ENV/
+.venv/  # UV default venv directory
+
+# UV
+.uv/  # UV cache directory
 
 # Environment variables and secrets
 .env
