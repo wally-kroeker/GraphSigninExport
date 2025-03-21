@@ -1,196 +1,77 @@
 # Tasks Plan
 
-## Project Status Overview
+This document outlines the planned tasks and their current status for the GraphReporter project.
 
-**Project Name:** GraphReporter
-**Current Status:** Planning Phase
-**Target Completion:** TBD
+## Environment Setup
 
-## Tasks Status
+- [x] Initialize project structure
+- [x] Create virtual environment with UV (Astral)
+- [x] Set up Git repository
+- [x] Configure development tools (black, isort, flake8)
+- [x] Create pyproject.toml for modern Python packaging
+- [x] Generate requirements files using UV
+- [x] Set up pytest for testing
+- [x] Set up configuration management
 
-| Status | Description |
-|--------|-------------|
-| 🟢 Completed | Task is fully completed and tested |
-| 🟡 In Progress | Work has begun on this task |
-| 🟠 Planned | Task is planned but not started |
-| 🔴 Blocked | Task is blocked by other tasks |
+## Authentication Module
 
-## Implementation Plan
-
-### Phase 1: Project Setup and Foundation
-
-#### 1.1 Project Structure and Documentation (🟡 In Progress)
-- [x] Define project requirements
-- [x] Create system architecture
-- [x] Document technical specifications
-- [x] Set up project directory structure
-- [x] Initialize Git repository with proper .gitignore
-- [x] Create README.md with project overview and usage instructions
-
-#### 1.2 Development Environment (🟡 In Progress)
-- [x] Set up virtual environment with UV (Astral)
-- [x] Create pyproject.toml for package configuration
-- [x] Generate requirements.txt and requirements-dev.txt using UV
-- [x] Set up linting and formatting tools (black, isort, flake8)
-- [x] Create initial test structure
-- [ ] Set up initial test cases
-
-### Phase 2: Core Components
-
-#### 2.1 Configuration Management (🟡 In Progress)
-- [x] Set up project configuration in pyproject.toml
-- [x] Add Azure AD app registration requirements
-- [ ] Implement configuration loading from environment variables
-- [ ] Add support for .env file
-- [ ] Create settings validation logic
-- [ ] Implement secure credential handling
-- [ ] Add configuration documentation
-
-#### 2.2 Authentication Module (🟡 In Progress)
-- [x] Document required Azure AD permissions:
-  - AuditLog.Read.All
-  - Directory.Read.All
-  - Application.Read.All
-- [x] Add authentication dependencies:
-  - azure-identity
-  - msgraph-sdk
-- [x] Create AuthClient class using azure-identity
+- [x] Create AuthClient using azure-identity
 - [x] Implement client credentials flow
 - [x] Add basic authentication test
 - [ ] Add token caching and management
 - [ ] Handle authentication errors gracefully
-- [ ] Write additional unit tests for authentication module
+- [ ] Write additional unit tests for auth module
 
-#### 2.3 Base Graph Client (🟠 Planned)
-- [ ] Create base GraphClient class
-- [ ] Implement common request handling
-- [ ] Add pagination support
-- [ ] Implement error handling
-- [ ] Add request retry logic
-- [ ] Write unit tests for GraphClient
+## Microsoft Graph API Integration
 
-### Phase 3: Data Retrieval
+- [x] Implement SignInLogsClient for retrieving sign-in logs
+- [x] Add filtering capabilities (date range, application, user)
+- [x] Create CSV export functionality
+- [x] Create example scripts for different export scenarios
+- [ ] Implement pagination handling for large datasets
+- [ ] Add error handling for Graph API calls
+- [ ] Add retry logic for failed API calls
+- [ ] Add more comprehensive logging
 
-#### 3.1 Sign-in Logs Client (🟠 Planned)
-- [ ] Create SignInClient class
-- [ ] Implement sign-in logs retrieval
-- [ ] Add filtering by date range and other parameters
-- [ ] Handle result transformation
-- [ ] Write unit tests for SignInClient
+## Data Export and Reporting
 
-#### 3.2 Applications Client (🟠 Planned)
-- [ ] Create ApplicationsClient class
-- [ ] Implement app registrations retrieval
-- [ ] Add filtering and property selection
-- [ ] Handle result transformation
-- [ ] Write unit tests for ApplicationsClient
+- [x] Implement basic CSV export
+- [ ] Add Excel export format
+- [ ] Add JSON export format
+- [ ] Create report templates
+- [ ] Implement data visualization options
+- [ ] Add command-line interface for report generation
+- [ ] Add scheduling capability for recurring reports
 
-#### 3.3 Service Principals Client (🟠 Planned)
-- [ ] Create ServicePrincipalsClient class
-- [ ] Implement enterprise apps retrieval
-- [ ] Add filtering and property selection
-- [ ] Handle result transformation
-- [ ] Write unit tests for ServicePrincipalsClient
+## Additional Report Types
 
-### Phase 4: Export Functionality
+- [ ] Device information reports
+- [ ] User information reports
+- [ ] Application usage reports
+- [ ] License usage reports
+- [ ] Security alerts reports
 
-#### 4.1 Base Exporter (🟠 Planned)
-- [ ] Create BaseExporter interface
-- [ ] Define common export methods
-- [ ] Implement output directory handling
-- [ ] Add export metadata
+## Project Documentation
 
-#### 4.2 CSV Export (🟠 Planned)
-- [ ] Implement CSVExporter class
-- [ ] Add data formatting for CSV
-- [ ] Handle large dataset export
-- [ ] Write unit tests for CSVExporter
+- [x] Create product requirements document
+- [x] Document architecture
+- [x] Document technical setup
+- [x] Create tasks plan
+- [x] Maintain active context
+- [ ] Write developer guide
+- [ ] Write user guide
 
-#### 4.3 Excel Export (🟠 Planned)
-- [ ] Implement ExcelExporter class
-- [ ] Add workbook and worksheet creation
-- [ ] Implement basic formatting
-- [ ] Handle large dataset export
-- [ ] Write unit tests for ExcelExporter
+## Testing and Quality Assurance
 
-#### 4.4 JSON Export (🟠 Planned)
-- [ ] Implement JSONExporter class
-- [ ] Add data formatting for JSON
-- [ ] Handle large dataset export
-- [ ] Write unit tests for JSONExporter
+- [x] Implement basic unit tests
+- [ ] Add integration tests
+- [ ] Set up CI/CD pipeline
+- [ ] Implement code coverage reporting
+- [ ] Add load testing for large dataset handling
 
-### Phase 5: CLI Interface
+## Deployment and Distribution
 
-#### 5.1 CLI Framework (🟠 Planned)
-- [ ] Set up Typer CLI framework
-- [ ] Create main entry point
-- [ ] Implement help text and documentation
-- [ ] Add version command
-- [ ] Write basic CLI tests
-
-#### 5.2 Sign-in Commands (🟠 Planned)
-- [ ] Implement fetch-signins command
-- [ ] Add filtering parameters
-- [ ] Implement output format selection
-- [ ] Add progress display
-- [ ] Write CLI tests for sign-in commands
-
-#### 5.3 Application Commands (🟠 Planned)
-- [ ] Implement list-apps command
-- [ ] Add filtering parameters
-- [ ] Implement output format selection
-- [ ] Add progress display
-- [ ] Write CLI tests for application commands
-
-#### 5.4 Service Principal Commands (🟠 Planned)
-- [ ] Implement list-service-principals command
-- [ ] Add filtering parameters
-- [ ] Implement output format selection
-- [ ] Add progress display
-- [ ] Write CLI tests for service principal commands
-
-### Phase 6: Testing and Refinement
-
-#### 6.1 Integration Testing (🟠 Planned)
-- [ ] Create integration test suite
-- [ ] Implement mock Graph API responses
-- [ ] Test full command workflows
-- [ ] Verify output correctness
-
-#### 6.2 Documentation (🟠 Planned)
-- [ ] Update README with final installation and usage instructions
-- [ ] Create detailed usage documentation
-- [ ] Add example commands and outputs
-- [ ] Document configuration options
-
-#### 6.3 Performance Optimization (🟠 Planned)
-- [ ] Profile code execution
-- [ ] Optimize memory usage
-- [ ] Improve pagination handling
-- [ ] Enhance error recovery
-
-#### 6.4 Security Review (🟠 Planned)
-- [ ] Review credential handling
-- [ ] Audit authentication implementation
-- [ ] Check for sensitive data exposure
-- [ ] Verify proper error handling
-
-### Phase 7: Packaging and Distribution
-
-#### 7.1 Final Package (🟠 Planned)
-- [ ] Finalize package structure
-- [ ] Update version and metadata
-- [ ] Create distribution packages
-
-#### 7.2 Release (🟠 Planned)
-- [ ] Perform final testing
-- [ ] Create release documentation
-- [ ] Tag release in Git
-- [ ] Prepare for distribution
-
-## Known Issues and Challenges
-
-- API throttling may affect performance with large datasets
-- Secure storage of client credentials needs careful implementation
-- Pagination handling for very large datasets could be complex
-- Test mocking of Graph API responses will require careful design
+- [ ] Package the application
+- [ ] Create installation documentation
+- [ ] Set up automated releases
+- [ ] Create Docker image

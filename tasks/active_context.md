@@ -2,7 +2,7 @@
 
 ## Current Development Focus
 
-We are currently implementing the core functionality of the GraphReporter project. The development environment is configured with UV (Astral), and basic authentication with Microsoft Graph API is now working successfully.
+We are currently implementing the core functionality of the GraphReporter project. The development environment is configured with UV (Astral), and we have successfully implemented both authentication with Microsoft Graph API and the first data export functionality.
 
 ### Completed Tasks
 
@@ -24,12 +24,17 @@ We are currently implementing the core functionality of the GraphReporter projec
   - Set up client credentials flow
   - Successfully tested Graph API connection
   - Verified organization access
+- Implemented sign-in logs export:
+  - Created SignInLogsClient for retrieving audit logs
+  - Added filtering by date range, application, and user
+  - Implemented CSV export functionality
+  - Created example scripts for different export scenarios
 
 ### In Progress
 
-- Expanding authentication test coverage
-- Implementing error handling and token management
-- Planning Graph API data retrieval implementation
+- Enhancing reporting capabilities
+- Adding more Graph API data sources
+- Improving error handling and token management
 
 ### Next Steps
 
@@ -38,24 +43,24 @@ We are currently implementing the core functionality of the GraphReporter projec
    - Implement token caching and management
    - Add more test cases for error scenarios
 
-2. Begin Graph API Client Implementation
-   - Design base client interface
-   - Implement pagination handling
-   - Set up error management
-   - Add data retrieval methods
+2. Expand Graph API Client Implementation
+   - Add more report types (users, devices, applications)
+   - Implement additional filtering options
+   - Improve data transformation and formatting
 
-3. Plan Data Export Features
-   - Design export formats (CSV, Excel, JSON)
-   - Plan data transformation logic
-   - Consider performance optimizations
+3. Improve Export Functionality
+   - Add support for more export formats (Excel, JSON)
+   - Implement data visualization options
+   - Add scheduling capability for recurring reports
 
 ## Current Decisions and Considerations
 
 - Using UV (Astral) as the primary Python environment manager
 - Using azure-identity and msgraph-sdk for Microsoft Graph integration
 - Successfully implemented app-only authentication using client credentials flow
-- Focusing on robust error handling and token management
-- Planning for efficient data retrieval and pagination
+- Successfully implemented sign-in logs export with flexible filtering options
+- Planning to expand to more Microsoft Graph data endpoints
+- Planning for efficient data retrieval and pagination handling
 
 ## Known Issues and Challenges
 
@@ -63,3 +68,4 @@ We are currently implementing the core functionality of the GraphReporter projec
 - Token management needs careful implementation for security
 - Error handling should be comprehensive yet user-friendly
 - Need to ensure proper handling of API rate limits
+- Need to provide flexible data filtering options for all report types

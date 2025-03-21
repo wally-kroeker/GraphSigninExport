@@ -50,18 +50,19 @@ class AuthClient:
             )
         return self._credential
     
-    @property
-    def client(self) -> GraphServiceClient:
+    def get_client(self) -> GraphServiceClient:
         """
         Get or create the GraphServiceClient
         
         Returns:
-            GraphServiceClient: The Graph client
+            GraphServiceClient: The client object
         """
         if not self._client:
             self.logger.debug("Creating GraphServiceClient")
-            scopes = ['https://graph.microsoft.com/.default']
-            self._client = GraphServiceClient(credentials=self.credential, scopes=scopes)
+            self._client = GraphServiceClient(
+                credentials=self.credential,
+                scopes=['https://graph.microsoft.com/.default']
+            )
         return self._client
     
     async def test_authentication(self) -> bool:
@@ -69,13 +70,13 @@ class AuthClient:
         Test the authentication by making a simple Graph API call
         
         Returns:
-            bool: True if authentication successful, False otherwise
+            bool: True if authentication is successful, False otherwise
         """
         try:
-            # Try to get organization details as a simple test
-            org = await self.client.organization.get()
-            self.logger.info(f"Successfully authenticated to tenant: {org.value[0].display_name}")
-            return True
+            client = self.get_client()
+            # Try to get the organization details as a test
+            result = await client.organization.get()
+            return bool(result and result.value)
         except Exception as e:
-            self.logger.error(f"Authentication failed: {str(e)}")
+            self.logger.error(f"Authentication test failed: {e}")
             return False 
