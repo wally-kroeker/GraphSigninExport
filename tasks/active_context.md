@@ -35,6 +35,18 @@ We are currently implementing the core functionality of the GraphReporter projec
     - Chunking of large date ranges for reliability
     - Automatic file combining for merged exports
     - Flexible command-line parameters
+  - Enhanced the user-specific export script with:
+    - Time chunking strategy to prevent timeouts
+    - Proper error handling for each chunk
+    - Automatic file combining functionality
+    - Command-line parameter support
+- Created unified CLI interface:
+  - Implemented unified shell script (graphreporter.sh)
+  - Added commands for all export types
+  - Added environment setup and validation
+  - Implemented UV-based package management
+  - Added comprehensive help system
+  - Standardized command-line arguments
 
 ### In Progress
 
@@ -61,6 +73,12 @@ We are currently implementing the core functionality of the GraphReporter projec
    - Add scheduling capability for recurring reports
    - Apply chunking and file combining to other export scripts
 
+4. Enhance CLI Interface
+   - Add more commands for new report types
+   - Implement report customization options
+   - Add output format selection
+   - Add advanced filtering options
+
 ## Current Decisions and Considerations
 
 - Using UV (Astral) as the primary Python environment manager
@@ -69,6 +87,7 @@ We are currently implementing the core functionality of the GraphReporter projec
 - Successfully implemented sign-in logs export with flexible filtering options
 - Using chunking strategy to handle Microsoft Graph API timeouts
 - Implementing proper error handling for partial success in data retrieval
+- Created unified shell script interface for all functionality
 - Planning to expand to more Microsoft Graph data endpoints
 - Planning for efficient data retrieval and pagination handling
 

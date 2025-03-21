@@ -24,6 +24,18 @@ This document keeps track of the project's history, key decisions, and milestone
   - Implemented chunking of large date ranges to improve reliability
   - Added automatic file combining functionality to merge chunked exports
   - Added command-line arguments for flexible date ranges and chunk sizes
+- Enhanced user-specific sign-in logs export script:
+  - Implemented time chunking strategy to address timeout issues
+  - Added proper error handling for each chunk
+  - Added automatic CSV file combining functionality
+  - Added support for command-line arguments (chunk-days, no-combine)
+- Created unified shell script interface (graphreporter.sh) for the entire project:
+  - Added commands for each export type (signin, app-by-name, app-by-id, user)
+  - Implemented UV-based environment setup and validation
+  - Added comprehensive help system with examples
+  - Added error handling and logging
+  - Standardized command-line arguments across all scripts
+- Updated project documentation to reflect all recent improvements
 
 ## Key Decisions
 
@@ -59,6 +71,22 @@ This document keeps track of the project's history, key decisions, and milestone
   - Implement retry logic with exponential backoff
   - Consider Microsoft Graph Data Connect for bulk data extraction
 
+### CLI Interface Design
+
+- Created a unified shell script interface (graphreporter.sh):
+  - Simple and intuitive command structure
+  - Consistent parameter naming across all scripts
+  - Automatic environment setup and validation
+  - Built-in help and examples
+- Used UV (Astral) for environment management:
+  - Automatic virtual environment creation
+  - Package installation via UV
+  - Environment validation checks
+- Standardized reporting across all exports:
+  - Consistent file naming conventions
+  - Similar output formatting
+  - Automatic CSV file combining when chunking is used
+
 ### Project Structure
 
 - Modular design with separate client classes for different Graph API areas
@@ -66,6 +94,7 @@ This document keeps track of the project's history, key decisions, and milestone
 - Separate example scripts for different use cases
 - Exports directory for storing output files
 - Comprehensive documentation in the tasks directory
+- Unified shell script interface for all functionality
 
 ## Next Steps
 

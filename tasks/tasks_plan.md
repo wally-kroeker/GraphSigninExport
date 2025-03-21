@@ -34,6 +34,33 @@ This document outlines the planned tasks and their current status for the GraphR
 - [ ] Add retry logic for failed API calls
 - [ ] Add more comprehensive logging
 
+## CLI Interface Implementation
+
+- [x] Create graphreporter.sh shell script:
+  - [x] Implement command structure (signin, app-by-name, app-by-id, user)
+  - [x] Add common options (--days, --chunk-days, --no-combine)
+  - [x] Add environment setup and validation
+  - [x] Add UV environment management and setup command
+  - [x] Implement help system with examples
+  - [x] Add error handling and logging
+- [x] Update example scripts for CLI compatibility:
+  - [x] Add consistent command-line arguments to all scripts
+  - [x] Update export_signin_logs.py with --days parameter
+  - [x] Update export_enterprise_app_logs.py with app name argument
+  - [x] Update export_user_signin_logs.py with email argument
+  - [x] Standardize output formatting across all scripts
+- [x] Add CLI documentation:
+  - [x] Update README with CLI usage instructions
+  - [x] Add examples for each command type
+  - [x] Document common options and parameters
+  - [x] Add troubleshooting guide
+  - [x] Document UV setup and requirements
+- [ ] Extend CLI interface:
+  - [ ] Add more report types as they are developed
+  - [ ] Add output format selection options
+  - [ ] Add advanced filtering parameters
+  - [ ] Implement configuration customization
+
 ## Data Export and Reporting
 
 - [x] Implement basic CSV export
