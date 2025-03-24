@@ -204,6 +204,8 @@ case "$command" in
                 app_name="$1"
                 shift
                 days=7
+                chunk_days=5
+                combine=""
                 
                 # Parse options
                 while [[ $# -gt 0 ]]; do
@@ -211,6 +213,14 @@ case "$command" in
                         --days)
                             days="$2"
                             shift 2
+                            ;;
+                        --chunk-days)
+                            chunk_days="$2"
+                            shift 2
+                            ;;
+                        --no-combine)
+                            combine="--no-combine"
+                            shift
                             ;;
                         --verbose)
                             VERBOSE=true
@@ -225,7 +235,8 @@ case "$command" in
                 done
                 
                 log_info "Exporting sign-in logs for application '$app_name' for the last $days days..."
-                execute_command python "$BASE_DIR/examples/export_enterprise_app_logs.py" "$app_name" --days "$days"
+                log_info "Using chunk size of $chunk_days days..."
+                execute_command python "$BASE_DIR/examples/export_enterprise_app_logs.py" "$app_name" --days "$days" --chunk-days "$chunk_days" $combine
                 ;;
                 
             app-by-id)
