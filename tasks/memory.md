@@ -37,6 +37,15 @@ This document keeps track of the project's history, key decisions, and milestone
   - Standardized command-line arguments across all scripts
 - Updated project documentation to reflect all recent improvements
 
+### March 23, 2025
+
+- Fixed critical issue with hardcoded application name in enterprise app logs export script
+- Enhanced example scripts to avoid hardcoded values:
+  - Removed hardcoded application name "Office365 Shell WCSS-Client"
+  - Previously fixed hardcoded user email
+  - All parameters now properly passed via command-line arguments
+- Improved script flexibility and reusability through proper parameterization
+
 ## Key Decisions
 
 ### Authentication Approach
@@ -76,6 +85,7 @@ This document keeps track of the project's history, key decisions, and milestone
 - Created a unified shell script interface (graphreporter.sh):
   - Simple and intuitive command structure
   - Consistent parameter naming across all scripts
+  - All parameters passed via command-line arguments (no hardcoded values)
   - Automatic environment setup and validation
   - Built-in help and examples
 - Used UV (Astral) for environment management:
@@ -86,6 +96,16 @@ This document keeps track of the project's history, key decisions, and milestone
   - Consistent file naming conventions
   - Similar output formatting
   - Automatic CSV file combining when chunking is used
+
+### Code Quality and Maintainability
+
+- Strict avoidance of hardcoded values in example scripts:
+  - All parameters passed via command-line arguments
+  - Default values set through argparse when appropriate
+  - Clear documentation of required and optional parameters
+- Consistent error handling and logging across all scripts
+- Modular design with reusable components
+- Clear separation of concerns between authentication, data retrieval, and export functionality
 
 ### Project Structure
 
