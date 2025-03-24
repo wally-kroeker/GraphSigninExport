@@ -46,6 +46,19 @@ This document keeps track of the project's history, key decisions, and milestone
   - All parameters now properly passed via command-line arguments
 - Improved script flexibility and reusability through proper parameterization
 
+### March 24, 2025
+
+- Enhanced enterprise app logs export script with time chunking:
+  - Added support for breaking large date ranges into smaller chunks
+  - Implemented automatic file combining functionality
+  - Added command-line arguments for chunk size control
+  - Fixed timeout issues when requesting large date ranges
+  - Aligned with the same chunking strategy used in app-by-id and user scripts
+- Standardized chunking implementation across all export scripts:
+  - Default chunk size of 5 days for enterprise apps
+  - Automatic file combining with option to preserve individual chunks
+  - Consistent error handling and progress reporting
+
 ## Key Decisions
 
 ### Authentication Approach
@@ -69,7 +82,10 @@ This document keeps track of the project's history, key decisions, and milestone
 
 ### Microsoft Graph API Best Practices
 
-- Breaking requests into smaller time chunks to avoid timeouts (implemented)
+- Breaking requests into smaller time chunks to avoid timeouts (implemented across all scripts):
+  - User sign-in logs: 3-day chunks
+  - Enterprise app logs: 5-day chunks
+  - App-by-id logs: 10-day chunks
 - Using asynchronous requests with proper error handling (implemented)
 - Properly setting up authentication with correct scopes (implemented)
 - Implemented safety checks to prevent infinite loops when processing date ranges
